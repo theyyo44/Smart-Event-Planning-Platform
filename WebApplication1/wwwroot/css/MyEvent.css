@@ -1,0 +1,57 @@
+﻿.nav-tabs .nav-link {
+    color: #555;
+    font-weight: bold;
+    border: none;
+}
+
+    .nav-tabs .nav-link.active {
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+.event-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .event-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .event-card .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .event-card .card-body {
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .event-card .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .event-card .card-text {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .event-card p {
+        margin-bottom: 0.5rem;
+    }
+
+.tab-content {
+    background: #f8f9fa;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+}

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Doğrulama Kodu";
+}
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bokor&family=Itim&family=Protest+Revolution&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/ParolaDogrulama.css">
+    <title>Parola Sıfırla</title>
+</head>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <div class="card p-4 shadow" style="max-width: 400px; width: 100%; border-radius: 12px;">
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form method="post" action="/Home/VerifyCode">
+            <input type="hidden" name="email" value="@ViewData["Email"]" />
+
+            <div class="form-group mb-3">
+                <label for="verificationCode" class="form-label">Doğrulama Kodu</label>
+                <input type="text" class="form-control" id="verificationCode" name="verificationCode" placeholder="Doğrulama kodunu giriniz" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="newPassword" class="form-label">Yeni Şifre</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Yeni şifrenizi giriniz" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block shadow">Şifreyi Yenile</button>
+        </form>
+    </div>
+</div>

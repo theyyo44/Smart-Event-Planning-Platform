@@ -1,0 +1,89 @@
+﻿@model WebApplication1.Models.Etkinlik
+
+@{
+    ViewData["Title"] = "Etkinlik Güncelle - Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+
+    <!-- Hata Measj teaster entegre-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+</head>
+<script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    toastr.error('@TempData["ErrorMessage"]', 'Hata');
+        </text>
+    }
+                    });
+</script>
+
+<div class="container mt-5">
+    <h1>Etkinlik Güncelle</h1>
+
+    <form asp-action="EditEvent" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        <div class="mb-3">
+            <label for="Name" class="form-label">Etkinlik Adı</label>
+            <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="Description" class="form-label">Açıklama</label>
+            <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="Image" class="form-label">Resim Güncelle</label>
+            <input type="file" class="form-control" id="Image" name="Image" accept="image/*">
+            <img src="@Model.ImageUrl" alt="Mevcut Resim" class="img-thumbnail mt-2" style="max-width: 200px;">
+        </div>
+
+        <div class="mb-3">
+            <label for="Category" class="form-label">Kategori</label>
+            <select class="form-select" id="Category" name="selectedCategoryId" required>
+                <option value="" disabled selected>Kategori seçin</option>
+                @foreach (var category in ViewBag.Categories as List<WebApplication1.Models.Kategori>)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Date" class="form-label">Tarih</label>
+            <input type="datetime-local" class="form-control" id="Date" name="Date" value="@Model.Date.ToString("yyyy-MM-ddTHH:mm")" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="DurationHours" class="form-label">Süre (Saat)</label>
+            <input type="number" class="form-control" id="DurationHours" name="DurationHours" value="@Model.Duration.Hours" min="0" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="DurationMinutes" class="form-label">Süre (Dakika)</label>
+            <input type="number" class="form-control" id="DurationMinutes" name="DurationMinutes" value="@Model.Duration.Minutes" min="0" max="59" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="Location" class="form-label">Konum</label>
+            <input type="text" class="form-control" id="Location" name="Location" value="@Model.Location" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </form>
+</div>

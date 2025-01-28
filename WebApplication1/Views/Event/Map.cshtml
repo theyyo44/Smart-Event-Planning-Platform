@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Etkinlik Haritası";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etkinlik Haritası</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .info-window {
+            font-size: 14px;
+        }
+        .info-window h5 {
+            margin-bottom: 10px;
+        }
+        .info-window img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Etkinlik Haritası</h2>
+        <div id="map"></div>
+    </div>
+
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRXYjVWKwDEIRF1bA9JeCLsI78Nc9ycrk&callback=initMap">
+    </script>
+    <script>
+        let map;
+
+        function initMap() {
+            const etkinlikler = @Html.Raw(ViewData["EtkinliklerJson"]);
+
+            // Haritayı başlat
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 39.92077, lng: 32.85411 }, // Türkiye merkezi
+                zoom: 7,
+            });
+
+            const geocoder = new google.maps.Geocoder();
+
+            etkinlikler.forEach(etkinlik => {
+                geocoder.geocode({ address: etkinlik.Location }, function (results, status) {
+                    if (status === "OK") {
+                        const marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map,
+                            title: etkinlik.Name,
+                        });
+
+                        const infoWindow = new google.maps.InfoWindow({
+                            content: `
+                                <div class="info-window">
+                                    <h5>${etkinlik.Name}</h5>
+                                    <img src="${etkinlik.ImageUrl ?? '/images/default-event.jpg'}" alt="${etkinlik.Name}">
+                                    <p><strong>Tarih:</strong> ${new Date(etkinlik.Date).toLocaleDateString()}</p>
+                                    <p><strong>Saat:</strong> ${etkinlik.Duration}</p>
+                                    <p><strong>Açıklama:</strong> ${etkinlik.Description}</p>
+                                    <a href="/Event/Details/${etkinlik.Id}" class="btn btn-primary btn-sm">Detayları Gör</a>
+                                </div>
+                            `,
+                        });
+
+                        marker.addListener("click", function () {
+                            infoWindow.open(map, marker);
+                        });
+                    } else {
+                        console.error("Geocode failed: " + status);
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

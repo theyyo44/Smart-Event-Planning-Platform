@@ -1,0 +1,107 @@
+﻿@model IEnumerable<WebApplication1.Models.Etkinlik>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Onaylanmış Etkinlikler";
+}
+<head>
+
+    <!-- Hata Measj teaster entegre-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+</head>
+<script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    toastr.error('@TempData["ErrorMessage"]', 'Hata');
+        </text>
+    }
+                    });
+</script>
+
+<h2 class="mb-4 text-center">Onaylanmış Etkinlikler</h2>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var eventItem in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@eventItem.Name</h5>
+                        <p class="card-text text-muted">@eventItem.Description</p>
+                        <p><strong>Tarih:</strong> @eventItem.Date.ToShortDateString()</p>
+                        <p><strong>Konum:</strong> @eventItem.Location</p>
+                        <p>
+                            <strong>Kategoriler:</strong>
+                            @if (eventItem.EventCategories != null && eventItem.EventCategories.Any())
+                            {
+                                @string.Join(", ", eventItem.EventCategories.Select(ec => ec.Kategori.Name))
+                            }
+                            else
+                            {
+                                <span class="text-muted">Kategori Yok</span>
+                            }
+                        </p>
+                    </div>
+                    <div class="card-footer bg-light d-flex justify-content-between">
+                        <form asp-action="DeleteEvent" method="post">
+                            <input type="hidden" name="id" value="@eventItem.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Sil
+                            </button>
+                        </form>
+                        <a href="@Url.Action("EditEvent", "Admin", new { id = eventItem.Id })" class="btn btn-warning btn-sm">Güncelle</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<style>
+
+    .card {
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .card .card-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+    .card-footer {
+        border-top: 1px solid #e9ecef;
+        background-color: #f8f9fa;
+    }
+
+    .card .btn {
+        font-size: 0.875rem;
+        padding: 5px 10px;
+    }
+
+</style>

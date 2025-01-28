@@ -1,0 +1,64 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/style2.css">
+    <title>@ViewData["Title"] - Kullanıcı Paneli</title
+      
+
+</head>
+<body>
+    <!-- Üst Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <img src="~/images/logo.png" alt="Logo">
+                
+            </div>
+            <div class="navbar-menu">
+                <a href="@Url.Action("Index", "User")"><i class='bx bx-home'></i> Home</a>
+                <a href="@Url.Action("AddEvent", "Event")"><i class='bx bx-plus-circle'></i> Etkinlik Ekle</a>
+                <a href="@Url.Action("MyEvent", "User")"><i class='bx bx-list-ul'></i> Etkinliklerim</a>
+                <a href="@Url.Action("Map", "Event")"><i class="bx bx-map"></i> Etkinlik Haritası</a>
+                <a href="@Url.Action("Leaderboard", "User")" class="nav-link"><i class="bx bx-trophy-fill"></i> Puan Sıralaması</a>
+            </div>
+            <div class="navbar-user">
+
+
+                <img src="@(HttpContextAccessor.HttpContext.Session.GetString("UserProfilePicture") ?? "~/images/profile.png")"
+                     alt="Profil Resmi" class="profile-picture dropdown-toggle"
+                     id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("Profile", "User")">
+                            <i class='bx bx-user'></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("Logout", "Home")">
+                            <i class='bx bx-lock'></i> Logout
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("SelectInterests", "User")">
+                            <i class='bx bx-heart'></i> İlgi Alanlarım
+                        </a>
+                    </li>
+                </ul>
+                <span>@ViewData["UserName"]</span>
+
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+</body>
+</html>

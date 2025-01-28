@@ -1,0 +1,76 @@
+﻿@model List<WebApplication1.Models.Kullanici>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+}
+<head>
+
+    <!-- Hata Measj teaster entegre-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+</head>
+<script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    toastr.error('@TempData["ErrorMessage"]', 'Hata');
+        </text>
+    }
+                });
+</script>
+
+<div class="user-container">
+    <h2 class="mb-4 text-center">Kullanıcı Yönetimi</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var user in Model)
+        {
+            <div class="col">
+                <div class="card user-card shadow-sm h-100">
+                    <!-- Profil Resmi -->
+                    <div class="card-header text-center bg-light">
+                        <img src="@(!string.IsNullOrEmpty(user.ProfilePicture) ? user.ProfilePicture : "/images/default.png")"
+                             alt="Profil Resmi"
+                             class="img-fluid rounded-circle"
+                             style="width: 100px; height: 100px; object-fit: cover; border: 3px solid #ced4da;" />
+                    </div>
+                    <!-- Kullanıcı Bilgileri -->
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@user.FirstName @user.LastName</h5>
+                        <p class="card-text text-muted">
+                            <strong>Kullanıcı Adı:</strong> @user.UserName<br />
+                            <strong>Email:</strong> @user.Email<br />
+                            <strong>Telefon:</strong> @(!string.IsNullOrEmpty(user.PhoneNumber) ? user.PhoneNumber : "N/A")
+                        </p>
+                    </div>
+                    <!-- İşlemler -->
+                    <div class="card-footer bg-light text-center">
+                        <form asp-action="DeleteUser" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm me-2">
+                                <i class="bi bi-trash"></i> Sil
+                            </button>
+                        </form>
+                        <form asp-action="EditUser" method="get" style="display:inline;">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil"></i> Güncelle
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

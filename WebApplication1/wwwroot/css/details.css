@@ -1,0 +1,189 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 30px;
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 1450px;
+    max-width: 100%;
+    min-height: 670px; /* Minimum yükseklik */
+}
+
+    .container p {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.3px;
+        margin: 20px 0;
+
+    }
+
+    .container span {
+        font-size: 12px;
+    }
+
+    .container a {
+        color: #333;
+        font-size: 13px;
+        text-decoration: none;
+        margin: 15px 0 10px;
+    }
+
+    .container button {
+        background-color: #343a40;
+        color: #fff;
+        font-size: 12px;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+        .container button.hidden {
+            background-color: transparent;
+            border-color: #fff;
+        }
+
+    .container form {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 40px;
+        height: 100%;
+    }
+
+    .container input {
+        background-color: #eee;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 8px;
+        width: 100%;
+        outline: none;
+    }
+.image-container {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    border-radius: 10px;
+    height: 100%; /* Yüksekliği tam kapsar */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+.overlay-title {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.overlay-subtitle {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.event-title {
+    font-family: 'Protest Revolution', sans-serif;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.event-details {
+    font-size: 1.1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .detail-item i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .detail-item small {
+        display: block;
+        color: #666;
+        margin-left: 2rem;
+    }
+
+.participants-images {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.participant-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.more-participants {
+    font-size: 0.9rem;
+    background: orange;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+}
+
+
+
+.comments-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+}
+
+.new-comment textarea {
+    resize: none;
+}

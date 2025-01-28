@@ -1,0 +1,113 @@
+﻿@model IEnumerable<WebApplication1.Models.Etkinlik>
+
+@{
+    ViewData["Title"] = "Admin Panel - Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+
+    <!-- Hata Measj teaster entegre-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+</head>
+<script>
+    $(document).ready(function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                    toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+        </text>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                    toastr.error('@TempData["ErrorMessage"]', 'Hata');
+        </text>
+    }
+                    });
+</script>
+
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Onay Bekleyen Etkinlikler</h1>
+    
+
+    @if (ViewData["PendingEvents"] != null && ((List<WebApplication1.Models.Etkinlik>)ViewData["PendingEvents"]).Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var ev in (List<WebApplication1.Models.Etkinlik>)ViewData["PendingEvents"])
+            {
+                <div class="col">
+                    <div class="card event-card h-100 shadow-sm">
+                        <!-- Görsel -->
+                        <img src="@(!string.IsNullOrEmpty(ev.ImageUrl) ? ev.ImageUrl : "/images/default-event.jpg")"
+                             class="card-img-top" alt="@ev.Name" style="height: 200px; object-fit: cover;">
+
+
+                        <div class="card-body">
+                            <h5 class="card-title">@ev.Name</h5>
+                            <p class="card-text text-muted">@ev.Description</p>
+                            <p><strong>Tarih:</strong> @ev.Date.ToShortDateString()</p>
+                            <p><strong>Saat:</strong> @ev.Duration</p>
+                            <p><strong>Durum:</strong> <span class="badge bg-warning">@ev.Status</span></p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <form method="post" asp-action="ApproveEvent" asp-controller="Admin">
+                                <input type="hidden" name="eventId" value="@ev.Id" />
+                                <button class="btn btn-success btn-sm">Onayla</button>
+                            </form>
+                            <form method="post" asp-action="RejectEvent" asp-controller="Admin">
+                                <input type="hidden" name="eventId" value="@ev.Id" />
+                                <button class="btn btn-danger btn-sm">Reddet</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            Onay bekleyen etkinlik bulunmamaktadır.
+        </div>
+    }
+</div>
+<style>
+    .event-card {
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-card .card-title {
+            color: #343a40;
+            font-weight: bold;
+        }
+
+        .event-card .card-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .event-card .badge {
+            font-size: 0.8rem;
+        }
+
+        .event-card .card-footer {
+            background-color: #f8f9fa;
+            border-top: none;
+        }
+
+    .card-img-top {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+</style>

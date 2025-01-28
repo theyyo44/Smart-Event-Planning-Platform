@@ -1,0 +1,349 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 30px;
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 670px; /* Minimum yükseklik */
+}
+
+    .container p {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.3px;
+        margin: 20px 0;
+    }
+
+    .container span {
+        font-size: 12px;
+    }
+
+    .container a {
+        color: #333;
+        font-size: 13px;
+        text-decoration: none;
+        margin: 15px 0 10px;
+    }
+
+    .container button {
+        background-color: #343a40;
+        color: #fff;
+        font-size: 12px;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+        .container button.hidden {
+            background-color: transparent;
+            border-color: #fff;
+        }
+
+    .container form {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 40px;
+        height: 100%;
+    }
+
+    .container input {
+        background-color: #eee;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 8px;
+        width: 100%;
+        outline: none;
+    }
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.active .sign-in {
+    transform: translateX(100%);
+}
+
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move {
+    0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%, 100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.social-icons {
+    margin: 20px 0;
+}
+
+    .social-icons a {
+        border: 1px solid #ccc;
+        border-radius: 20%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 3px;
+        width: 40px;
+        height: 40px;
+    }
+
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container {
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+    background-color: #343a40 !important;
+    height: 100%;
+    
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle {
+    transform: translateX(50%);
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left {
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+    transform: translateX(0);
+}
+
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right {
+    transform: translateX(200%);
+}
+
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+.card-footer {
+    background-color: #f8f9fa;
+}
+/* Kullanıcı Kart Ana Yapısı */
+
+
+.user-container {
+    background-color: #fff;
+    border-radius: 30px;
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 1200px;
+    max-width: 100%;
+    min-height: 670px; /* Minimum yükseklik */
+}
+
+
+.user-card {
+    border-radius: 15px; /* Yuvarlatılmış köşeler */
+    overflow: hidden; /* Taşmaları gizle */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Hafif gölge */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover animasyonu */
+    background-color: #fff; /* Beyaz arka plan */
+}
+
+    .user-card:hover {
+        transform: translateY(-10px); /* Hover'da yukarı kalkma efekti */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Hover'da daha belirgin gölge */
+    }
+
+    /* Profil Resmi Bölümü */
+    .user-card .card-header {
+        background-color: #f8f9fa; /* Açık gri arka plan */
+        text-align: center; /* Ortala */
+        padding: 30px; /* İç boşluk */
+    }
+
+    .user-card .profile-picture {
+        width: 150px; /* Resim genişliği */
+        height: 150px; /* Resim yüksekliği */
+        object-fit: cover; /* Resmi kırpmadan orantılı göster */
+        border: 5px solid #6c757d; /* Dış çerçeve */
+        border-radius: 50%; /* Tam daire */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover efekti */
+    }
+
+        .user-card .profile-picture:hover {
+            transform: scale(1.1); /* Hover'da büyüt */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge */
+        }
+
+    /* Kullanıcı Bilgileri */
+    .user-card .card-body {
+        padding: 20px;
+        text-align: center; /* Ortala */
+    }
+
+    .user-card .card-title {
+        font-size: 1.5rem; /* Büyük yazı boyutu */
+        font-weight: bold; /* Kalın yazı */
+        margin-bottom: 10px;
+        color: #343a40; /* Koyu renk */
+    }
+
+    .user-card .card-text {
+        font-size: 0.9rem; /* Küçük metin */
+        color: #6c757d; /* Açık gri metin */
+        line-height: 1.5; /* Metin satır aralığı */
+    }
+
+    /* İşlem Butonları */
+    .user-card .card-footer {
+        background-color: #f8f9fa; /* Hafif gri arka plan */
+        padding: 15px;
+        border-top: 1px solid #e9ecef; /* Üst kenarlık */
+        text-align: center; /* Ortala */
+    }
+
+    .user-card .btn {
+        font-size: 0.875rem; /* Küçük boyut */
+        padding: 8px 16px; /* Buton iç boşluğu */
+        border-radius: 5px; /* Yuvarlatılmış kenarlar */
+    }
+
+    .user-card .btn-danger {
+        background-color: #dc3545; /* Kırmızı */
+        border: none;
+    }
+
+        .user-card .btn-danger:hover {
+            background-color: #c82333; /* Daha koyu kırmızı */
+        }
+
+    .user-card .btn-primary {
+        background-color: #007bff; /* Mavi */
+        border: none;
+    }
+
+        .user-card .btn-primary:hover {
+            background-color: #0056b3; /* Daha koyu mavi */
+        }

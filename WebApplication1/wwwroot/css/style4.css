@@ -1,0 +1,107 @@
+﻿body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+   
+}   
+}
+h1 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h2 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h4 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h6 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+label {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+small {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+.carousel-control-next {
+    right: -20px;
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+    transform: translateY(500%);
+}
+
+  
+.carousel-control-prev {  
+    left: -20px; /* Butonun sol tarafa olan mesafesini artır */
+    background-color: #000000;
+    opacity: 0.2; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+    transform: translateY(500%);
+}
+
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.card-title {
+    font-weight: bold;
+    color: #343a40;
+}
+
+.text-muted {
+    font-size: 1.2rem;
+    color: #6c757d !important;
+}
+
+    .text-muted i {
+        margin-top: 10px;
+    }
+
+
+.position-absolute {
+    border-radius: 30px; /* Oval kenarları daha belirgin hale getirir */
+    padding: 10px 20px; /* Daha geniş içerik için padding */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Hafif gölgelendirme ekler */
+}       
+
+    .position-absolute:hover {
+        transform: scale(1.05); /* Hover durumunda hafif büyüme */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Hover sırasında gölgelendirme artırılır */
+    }

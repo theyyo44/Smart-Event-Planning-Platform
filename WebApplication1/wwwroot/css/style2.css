@@ -1,0 +1,139 @@
+﻿body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+h2 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h4 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+/* Genel Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333; /* Navbar arka plan rengi */
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbar-logo {
+    display: flex;
+    justify-content: flex-start; /* İlk olarak soldan hizalama */
+    padding-left: 0px; /* Sola biraz boşluk eklenmiş */
+}
+
+    .navbar-logo img {
+        border-radius: 50%; /* Köşeleri yuvarlatır */
+        object-fit: cover; /* Görüntüyü düzgün kırpar */
+        width: 50px; /* Görsel genişliği */
+        height: 50px; /* Görsel yüksekliği */
+        margin-left: 20px; /* Sağ kaydırmak için margin */
+    }
+
+    .navbar-logo span {
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase; 
+       
+
+    }
+
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+}
+
+    .navbar-menu a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+
+        .navbar-menu a i {
+            margin-right: 5px;
+        }
+
+        .navbar-menu a:hover {
+            color: #1e90ff; /* Hover rengini değiştirebilirsiniz */
+        }
+
+.navbar-user {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+    .navbar-user i {
+        font-size: 24px;
+        margin-right: 5px;
+    }
+
+/* Ana içerik alanı */
+.main-content {
+    margin-top: 60px; /* Navbar yüksekliğine göre içerik ayarı */
+    padding: 20px;
+}
+.navbar-user {
+    position: relative; /* Açılır menü için konum ayarı */
+}
+
+    .navbar-user .profile-picture {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%; /* Yuvarlak resim */
+        cursor: pointer;
+        border: 2px solid #fff;
+    }
+
+    .navbar-user .dropdown-menu {
+        top: 50px; /* Açılır menü pozisyonu */
+        right: 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .navbar-user .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        transition: background-color 0.2s ease;
+    }
+
+        .navbar-user .dropdown-item:hover {
+            background-color: #f1f1f1;
+        }

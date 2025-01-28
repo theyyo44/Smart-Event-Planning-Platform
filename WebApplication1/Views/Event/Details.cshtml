@@ -1,0 +1,256 @@
+﻿@model WebApplication1.Models.Etkinlik
+
+@{
+      Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  
+
+
+<head>
+   
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <title>Etkinlik Detayları</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="~/css/style4.css">
+    
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .travel-options {
+            margin-top: 20px;
+        }
+
+        .travel-time {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+     <script>
+        $(document).ready(function () {
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                        toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+            </text>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                        toastr.error('@TempData["ErrorMessage"]', 'Hata');
+            </text>
+        }
+            });
+    </script>
+
+    <div class="container mt-5">
+        <div class="row align-items-center">
+            <!-- Sol Kısım: Fotoğraf -->
+            <div class="col-md-4">
+                <img src="@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/default-event.jpg")"
+                     alt="@Model.Name" class="img-fluid rounded shadow" style="width: 100%; max-height: 400px; object-fit: cover;">
+            </div>
+
+            <!-- Sağ Kısım: Bilgiler -->
+            <div class="col-md-8">
+                <h2 class="event-title">@Model.Name</h2>
+                <div>
+                    <div>
+                        <i class="bi bi-calendar-date-fill"></i>
+                        @Model.Date.ToString("dd MMMM yyyy") @Model.Date.ToString("HH:mm")
+                    </div>
+                    <div>
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                        <span>@Model.Location</span>
+                    </div>
+                </div>
+
+            
+
+                <label for="startLocation" class="form-label">Başlangıç Konumu:</label>
+                <input id="startLocation" type="text" class="form-control mb-3" placeholder="Başlangıç konumunu girin veya seçin">
+                <!-- Ulaşım Modu Seçenekleri -->
+                <div class="travel-options">
+                    <label for="travelMode">Ulaşım Modu:</label>
+                    <select id="travelMode" class="form-select">
+                        <option value="DRIVING">Araba ile</option>
+                        <option value="WALKING">Yürüyerek</option>
+                        <option value="TRANSIT">Toplu Taşıma</option>
+                        <option value="BICYCLING">Bisiklet ile</option>
+                    </select>
+                </div>
+
+                <!-- Yolculuk Süresi -->
+                <div id="travelTime" class="travel-time text-primary"></div>
+            </div>
+            <form method="post" action="/Event/JoinEvent">
+                <input type="hidden" name="EtkinlikId" value="@Model.Id" />
+                <button type="submit" class="btn btn-success">Katıl</button>
+            </form>
+
+        </div>
+        <!-- Yorumlar Bölümü -->
+        <div class="comments-section mt-5">
+            <h4>Mesajlar</h4>
+
+            <!-- Mevcut Yorumlar -->
+            <div id="commentsList">
+                @if (Model != null && Model.Messages != null && Model.Messages.Any())
+                {
+                    foreach (var yorum in Model.Messages.OrderBy(y => y.SentDate))
+                    {
+                        <div class="comment mb-3 p-3 bg-light border rounded">
+                            <p><strong>@yorum.Sender.UserName:</strong> @yorum.Content</p>
+                            <small class="text-muted">@yorum.SentDate.ToString("dd MMM yyyy HH:mm")</small>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Henüz mesaj atılmamış. İlk mesajı siz atabilirsiniz!</p>
+                }
+            </div>
+
+            <!-- Yeni Yorum Ekle -->
+            <div class="new-comment mt-4">
+                <h5>Yorum Yap</h5>
+                <form id="commentForm" method="post" action="/Event/AddComment">
+                    <input type="hidden" name="EtkinlikId" value="@Model.Id" />
+                    <textarea name="Content" class="form-control mb-3" rows="4" placeholder="Mesajınızı yazın..." required></textarea>
+                    <button type="submit" class="btn btn-primary">Gönder</button>
+                </form>
+            </div>
+        </div>
+
+
+        
+
+        <!-- Google Maps -->
+        <div id="map"></div>
+        
+       
+    </div>
+
+    <!-- Google Maps API -->
+    <script async
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRXYjVWKwDEIRF1bA9JeCLsI78Nc9ycrk&callback=initMap&libraries=places">
+    </script>
+
+    <script>
+        let map, directionsService, directionsRenderer, geocoder, autocomplete;
+
+        function initMap() {
+            // Google Maps Servislerini Başlat
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            geocoder = new google.maps.Geocoder();
+
+            // Haritayı Yükle
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 39.92077, lng: 32.85411 }, // Türkiye merkezi
+                zoom: 14,
+            });
+
+            // DirectionsRenderer'ı Haritaya Bağla
+            directionsRenderer.setMap(map);
+
+            // Başlangıç Konumu için Google Places Autocomplete
+            const startLocationInput = document.getElementById("startLocation");
+            autocomplete = new google.maps.places.Autocomplete(startLocationInput);
+
+            // Rota Oluşturma Olayı
+            document.getElementById("travelMode").addEventListener("change", updateRoute);
+            startLocationInput.addEventListener("change", updateRoute);
+        }
+
+        function updateRoute() {
+            const startLocationInput = document.getElementById("startLocation").value;
+            const travelMode = document.getElementById("travelMode").value;
+
+            // Etkinlik Konumu (Adres olarak)
+            const eventAddress = "@Model.Location";
+
+            if (startLocationInput) {
+                geocoder.geocode({ address: startLocationInput }, (startResults, status) => {
+                    if (status === "OK") {
+                        const userLocation = startResults[0].geometry.location;
+
+                        geocoder.geocode({ address: eventAddress }, (eventResults, status) => {
+                            if (status === "OK") {
+                                const eventLocation = eventResults[0].geometry.location;
+                                calculateAndDisplayRoute(userLocation, eventLocation, travelMode);
+                            } else {
+                                alert("Etkinlik adresi bulunamadı: " + status);
+                            }
+                        });
+                    } else {
+                        alert("Başlangıç adresi bulunamadı: " + status);
+                    }
+                });
+            } else {
+                alert("Lütfen başlangıç konumunu girin.");
+            }
+        }
+
+        function calculateAndDisplayRoute(userLocation, eventLocation, travelMode) {
+            directionsService.route(
+                {
+                    origin: userLocation,
+                    destination: eventLocation,
+                    travelMode: google.maps.TravelMode[travelMode],
+                },
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+
+                        // Yolculuk Süresini Göster
+                        const duration = response.routes[0].legs[0].duration.text;
+                        document.getElementById("travelTime").innerText = `Yolculuk Süresi: ${duration}`;
+                    } else {
+                        alert("Rota oluşturulamadı: " + status);
+                    }
+                }
+            );
+        }
+
+        toastr.options = {
+        "closeButton": true, // Kapatma butonu
+        "debug": false, // Hata ayıklama
+        "newestOnTop": true, // En yeni bildirim en üstte
+        "progressBar": true, // İlerleme çubuğu
+        "positionClass": "toast-top-right", // Konum
+        "preventDuplicates": true, // Aynı bildirimlerin tekrarını engelle
+        "onclick": null, // Tıklama işlevi
+        "showDuration": "300", // Gösterim süresi (ms)
+        "hideDuration": "1000", // Kaybolma süresi (ms)
+        "timeOut": "5000", // Ekranda kalma süresi (ms)
+        "extendedTimeOut": "1000", // Fare üzerine gelindiğinde ek süre (ms)
+        "showEasing": "swing", // Gösterim animasyonu
+        "hideEasing": "linear", // Kaybolma animasyonu
+        "showMethod": "fadeIn", // Gösterim metodu
+        "hideMethod": "fadeOut" // Kaybolma metodu
+    };  
+
+    </script>
+</body>
+
+</html>

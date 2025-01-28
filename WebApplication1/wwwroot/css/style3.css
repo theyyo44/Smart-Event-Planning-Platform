@@ -1,0 +1,174 @@
+﻿
+body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+h2 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+h3 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+h4{
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+h5 {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Genel Kapsayıcı */
+.selection-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Ortalamak için */
+}
+
+/* İlgi Alanı Kartları */
+.interest-card {
+    display: inline-block;
+    margin: 10px;
+    width: 120px;
+    height: 50px;
+    background: #f8f9fa;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+    /* Hover ve Seçim Durumu */
+    .interest-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        background: #343a40;
+        color: #f8f9fa;
+    }
+
+/* Checkbox Görünmez Hale Getirme */
+input[type="checkbox"] {
+    display: none; /* Checkbox'ı gizle */
+}
+
+    /* Checkbox Seçim Durumu */
+    input[type="checkbox"]:checked + .interest-label {
+        background: #343a40;
+        color: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 255, 0.3);
+    }
+
+/* Label Tasarımı */
+.interest-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #343a40;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 25px;
+    border: 2px solid #; /* Çerçeve rengi */
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+button.btn-primary {
+    font-family: "Bokor", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 50px; /* Oval şekil */
+    font-size: 1.1rem;
+    padding: 10px 40px; /* Buton boyutunu artırır */
+    background-color: #343a40; /* Mavi arka plan */
+    color: #ffffff; /* Beyaz metin */
+    border: none; /* Kenarlık kaldır */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    button.btn-primary:hover {
+        background-color: #0056b3; /* Daha koyu mavi hover rengi */
+        transform: translateY(-3px); /* Hover'da yukarı kaydır */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Hover'da gölge artır */
+    }
+
+    button.btn-primary:focus {
+        outline: none; /* Focus durumunda çerçeve kaldır */
+    }
+
+
+#userEventsCarousel .carousel-control-prev {
+    left: -20px; /* Butonun sol tarafa olan mesafesini artır */
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+}
+
+#userEventsCarousel .carousel-control-next {
+    right: -20px;
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+   
+    transform: translateY(100%);
+}
+
+#userEventsCarousel .carousel-control-prev {
+    left: -20px; /* Butonun sol tarafa olan mesafesini artır */
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+    transform: translateY(100%);
+}
+
+#allEventsCarousel .carousel-control-next {
+    right: -20px;
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+    transform: translateY(500%);
+}
+
+#allEventsCarousel .carousel-control-prev {
+    left: -20px; /* Butonun sol tarafa olan mesafesini artır */
+    background-color: #000000;
+    opacity: 0.1; /* Opaklık ayarı */
+    width: 36px; /* Buton genişliği */
+    height: 36px; /* Buton yüksekliği */
+    border-radius: 18px; /* Yuvarlak butonlar için yarıçap */
+    transform: translateY(500%);
+}
+

@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <title>Login or Register</title>
+
+    <!-- Hata Measj teaster entegre-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                        toastr.success('@TempData["SuccessMessage"]', 'Başarılı');
+            </text>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <text>
+                        toastr.error('@TempData["ErrorMessage"]', 'Hata');
+            </text>
+        }
+            });
+    </script>
+
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+        <div class="form-container sign-up">
+            <form asp-action="Kayıt Ol"   method="post"  enctype="multipart/form-data">
+                <h1>Hesap Oluşturma</h1>
+                
+                <input type="text" name="UserName" placeholder="User Name" required>
+                <input type="email" name="Email" placeholder="Email" required>
+                <input type="password" name="Password" placeholder="Password" required>
+                <input type="text" name="FirstName" placeholder="Ad">
+                <input type="text" name="LastName" placeholder="Soyad">
+                <input type="date" name="BirthDate" placeholder="Doğum Tarihi">
+                <input type="text" name="Location" placeholder="Adrres">
+                <input type="text" name="Gender" placeholder="Cinsiyet">
+                <input type="tel" name="PhoneNumber" placeholder="Telefon Numarası">
+                <input type="file" name="Image" accept="image/*"> <!-- Resim yükleme -->
+                <button type="submit">Kayıt Ol</button>
+            </form>
+        </div>
+
+        <!-- Sign In Form -->
+        <div class="form-container sign-in">
+            <form method="post" action="/Home/Login">
+                <h1>Giriş</h1>
+                <input type="text" name="UserName" placeholder="Kullanıcı Adı" required>
+                <input type="password" name="Password" placeholder="Şifre" required>
+                <a href="/Home/ForgotPassword">Forget Your Password?</a>
+                <button type="submit">Giriş</button>
+            </form>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Hoşgeldin!</h1>
+                    <p>Etkinlik Platforma giriş yapmak için kulanıcı adı ve şifrenizi girin</p>
+                    <button class="hidden" id="login">Giriş</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>MERHABA!</h1>
+                    <p>Etkinlik platformunu kullanmka için kişisel bilgilerinizle kayıt olun</p>
+                    <button class="hidden" id="register">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/script.js"></script>
+</body>
+
+</html>

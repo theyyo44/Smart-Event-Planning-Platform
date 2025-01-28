@@ -1,0 +1,133 @@
+﻿
+/* Arka plan için beyazdan griye geçiş */
+
+body {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 30px;
+    height: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    ustify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+    width: 400px;
+    max-width: 100%;
+    height: 200px; /* Minimum yükseklik */
+    max-height: 100%;
+}
+
+    .container form {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 40px;
+        height: 100%;
+    }
+
+    .container input {
+        background-color: #eee;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 8px;
+        width: 100%;
+        outline: none;
+    }
+
+    .container button {
+        background-color: #343a40;
+        color: #fff;
+        font-size: 12px;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+/* Card (form alanı) için gölgelendirme */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit butonu için hover ve gölgelendirme */
+.submit-btn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    }
+
+h1 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h2 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h3 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h4 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h6 {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+label {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1.text-center {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #343a40;
+    margin: auto; /* Yatayda merkezlemek için */
+}
+
+
+.itim-regular {
+    font-family: "Itim", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Admin Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            height: 100vh; /* Tam ekran yüksekliği */
+            position: fixed; /* Sabit sidebar */
+            top: 0;
+            left: 0;
+            width: 250px; /* Sidebar genişliği */
+            background-color: #343a40; /* Koyu renk */
+            color: white;
+            padding: 1rem;
+        }
+
+        .main-content {
+            margin-left: 250px; /* Sidebar genişliği kadar boşluk bırak */
+            padding: 2rem;
+        }
+
+        .sidebar .list-group-item {
+            border: none; /* Kenar çizgisi kaldır */
+        }
+
+        .sidebar .list-group-item:hover {
+            background-color: #495057; /* Hover rengi */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Admin Paneli</h3>
+        <div class="list-group mt-4">
+            <a href="@Url.Action("Index", "Admin")" 
+               class="list-group-item list-group-item-action text-white @(ViewContext.RouteData.Values["action"].ToString() == "Index" ? "bg-primary" : "bg-secondary")">
+               <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+            <a href="@Url.Action("Users", "Admin")" 
+               class="list-group-item list-group-item-action text-white @(ViewContext.RouteData.Values["action"].ToString() == "Users" ? "bg-primary" : "bg-secondary")">
+               <i class="bi bi-people"></i> Kullanıcı Yönetimi
+            </a>
+            <a href="@Url.Action("Events", "Admin")" 
+               class="list-group-item list-group-item-action text-white @(ViewContext.RouteData.Values["action"].ToString() == "Events" ? "bg-primary " : "bg-secondary")">
+               <i class="bi bi-calendar-event"></i> Etkinlik Yönetimi
+            </a>
+            <a href="@Url.Action("Logout", "Home")" 
+               class="list-group-item list-group-item-action text-danger bg-secondary">
+               <i class="bi bi-box-arrow-left"></i> Çıkış Yap
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        @RenderBody()
+    </div>
+</body>
+</html>
