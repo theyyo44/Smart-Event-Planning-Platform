@@ -1,0 +1,1 @@
+# Smart Event Planning Platform
